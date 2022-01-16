@@ -1,0 +1,12 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 50rem));
+    justify-content: center;;
+}
+
+
+#wrapper-theme {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 15rem));
+    justify-content: center;
+}

@@ -1,0 +1,13 @@
+#textform {
+    display: flex;
+    width: 150%;;
+    height: max-content;
+    justify-content: center;
+}
+
+
+#footer {
+    display: flex;
+    bottom: 0;
+    justify-content: center;
+}
