@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom';
 import './TextForm.css';
 
-export default function TextForm({textcolor, textcolor2, bgcolor1, bgcolor2, buttoncolor}) {
+export default function TextForm({textcolor, textcolor2, bgcolor1, bgcolor2, buttoncolor, changeRoute}) {
     const handleUpClick = ()=> {
         let NewText = text.toUpperCase();
         setText(NewText);
@@ -28,11 +27,20 @@ export default function TextForm({textcolor, textcolor2, bgcolor1, bgcolor2, but
 
     }
 
+    const handleExtraSpaces = ()=> {
+        let NewText2 = text.split(/[ ]+/)
+        setText(NewText2.join(' '))
+    }
+
+    const handleClear = ()=> {
+        setText('')
+    }
+
 const [text, setText] = useState('')
 
 
     return (
-        <div className='mv4 container'>
+        <div className='mv4 container-md w-60'>
         <div>
         <label htmlFor="exampleFormControlTextarea1" className="form-label br4 ph4 pt2 f3" style={textcolor}>Enter Text to Analyze</label>
             <div className='ba ma3 pa3 br4' style={bgcolor2}>
@@ -43,12 +51,14 @@ const [text, setText] = useState('')
             <button  className="f6 dim ba dib br3 ma2 pa3 b--white-20" style={buttoncolor} onClick={handleLowClick}>LowerCase</button>
             <button  className="f6 dim ba dib br3 ma2 pa3 b--white-20" style={buttoncolor} onClick={handleCapClick}>Captalize</button>
             <button  className="f6 dim ba dib br3 ma2 pa3 b--white-20" style={buttoncolor} onClick={handleCopy}>Copy Text</button>
+            <button  className="f6 dim ba dib br3 ma2 pa3 b--white-20" style={buttoncolor} onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+            <button  className="f6 dim ba dib br3 ma2 pa3 b--white-20" style={buttoncolor} onClick={handleClear}>Clear</button>
             </div>
             <div className='pa3'>
                 <h3 className='my-2' style={textcolor}>Your Text Summary</h3>
-                <div style={textcolor}>{text.length} characters | {text.split(/\s+/).filter((element) => { return element.length!== 0 }).length} words | {0.002 * text.length} minutes to read</div>
+                <div style={textcolor}>{text.length} characters | {text.split(/\s+/).filter((element) => { return element.length!== 0 }).length} words | {0.005 * text.split(/\s+/).filter((element) => { return element.length!== 0 }).length} minutes to read</div>
             </div>  
-            <Link id='footer' className='tc mt5 no-underline' to={"/themes"} style={{color: (textcolor.color === 'black')? 'black' : 'white'}}> midnyt/themes</Link>
+            <div id='footer' className='tc mt5 no-underline pointer' onClick={changeRoute} style={{color: (textcolor.color === 'black')? 'black' : 'white'}}> themes</div>
         </div>
         
         </div>

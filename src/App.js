@@ -1,10 +1,8 @@
 // import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
-import About from './Components/About/About';
 import Navbar from './Components/Navbar';
 import TextForm from './Components/TextForm/TextForm';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Theme from './Components/theme/Theme';
 
 
@@ -19,12 +17,13 @@ function App() {
     backgroundColor: 'white'
   })
   const [bgcolor2, setbgcolor2] = useState({
-    backgroundColor: 'white'
+    backgroundColor: 'rgb(202, 214, 215)'
   })
   const [buttoncolor, setbuttoncolor] = useState({
     color: 'black',
     backgroundColor: 'light-grey'
   })
+  const [Route, setRoute] = useState('home')
   // const toggleMode = () => {
   //   if (mode === "light") {
   //     setmode('dark');
@@ -34,6 +33,13 @@ function App() {
   //     document.body.style.backgroundColor = "white"
   //   }
   // }
+  const changeRoute = () => {
+    if (Route === 'home') {
+      setRoute('theme')
+    } else {
+      setRoute('home')
+    }
+  }
 
   const themeNord = () => {
     settextcolor({
@@ -53,44 +59,57 @@ function App() {
       color: '#ff79c6'
     })
     document.body.style.backgroundColor = '#282a36'
-
-
-    // setBox({
-    //   backgroundColor: '#44475a',
-    //   color: '#f1fa8c'
-    // })
-    // document.body.style.backgroundColor = '#282a36'
-    // settexts({
-    //   color: '#8be9fd'
-    // })
-    // setbutton({ 
-    //   color: ' #ff79c6', 
-    //   backgroundColor: 'rgb(37, 41, 69)' 
-    // })
-    // setnavcolor({
-    //   color: 'white',
-    //   backgroundColor:'#bd93f9'
-    // })
   }
+
+  const themeLight = () => {
+    settextcolor({
+      color: 'black'
+    })
+    settextcolor2({
+      color: 'black'
+    })
+    setbgcolor1({
+      backgroundColor: 'white'
+    })
+    setbgcolor2({
+      backgroundColor: 'rgb(202, 214, 215)'
+    })
+    setbuttoncolor({
+      background: 'white',
+      color: 'black'
+    })
+    document.body.style.backgroundColor = 'white'
+  }
+
+  // setBox({
+  //   backgroundColor: '#44475a',
+  //   color: '#f1fa8c'
+  // })
+  // document.body.style.backgroundColor = '#282a36'
+  // settexts({
+  //   color: '#8be9fd'
+  // })
+  // setbutton({ 
+  //   color: ' #ff79c6', 
+  //   backgroundColor: 'rgb(37, 41, 69)' 
+  // })
+  // setnavcolor({
+  //   color: 'white',
+  //   backgroundColor:'#bd93f9'
+  // })
+
 
 
 
 
   return (
-    <Router>
+    <div>
       <Navbar textcolor={textcolor} />
-
-      <div>
-        <Routes>
-          <Route exact path="/about" element={<About />}>
-          </Route>
-          <Route exact path="/" element={<TextForm textcolor={textcolor} textcolor2={textcolor2} bgcolor1={bgcolor1} bgcolor2={bgcolor2} buttoncolor={buttoncolor} />}>
-          </Route>
-          <Route exact path="/themes" element={<Theme themeNord={themeNord} textcolor={textcolor} bgcolor2={bgcolor2} />}>
-          </Route>
-        </Routes>
-      </div>
-    </Router>
+      {(Route === 'home')
+      ?<TextForm textcolor={textcolor} textcolor2={textcolor2} bgcolor1={bgcolor1} bgcolor2={bgcolor2} buttoncolor={buttoncolor} changeRoute={changeRoute} />
+      : <Theme themeNord={themeNord} themeLight={themeLight} textcolor={textcolor} bgcolor2={bgcolor2} changeRoute={changeRoute} />
+      }
+    </div>
   );
 }
 
